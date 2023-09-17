@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import "./App.css";
 import { NameCounter } from "./components/NameCounter";
+import { Parent } from "./components/child-parent/Parent";
 
 const initialState = ["A", "B", "C"];
 
@@ -80,6 +81,9 @@ function App() {
         {state.map((v, i) => (
           <div key={v + "-" + i}>{v}</div>
         ))}
+
+        <hr />
+        <Parent />
       </div>
     </>
   );
