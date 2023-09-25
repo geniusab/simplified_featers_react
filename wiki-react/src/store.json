@@ -1,0 +1,28 @@
+[
+  {
+    "title": "component category",
+    "list": [
+      {
+        "title": "stateless/presentable component",
+        "description": "no state, can receive props"
+      },
+      {
+        "title": "Stateful",
+        "description": "have state"
+      },
+      {
+        "title": "structural component",
+        "description": "pages, layouts, screens and don't reusable"
+      }
+    ]
+  },
+  {
+    "title": "component composition",
+    "description": "combining different components using the same children prop",
+    "list": [
+      {
+        "title": "fix prop drilling with composition "
+      }
+    ]
+  }
+]
