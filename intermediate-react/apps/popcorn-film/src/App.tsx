@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 import { useState } from "react";
 
@@ -105,6 +106,7 @@ function ListBox({ movies }) {
 }
 
 function WatchBox() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [watched, setWatched] = useState(tempWatchedData);
 
   return (
@@ -203,11 +205,13 @@ function WatchedMovie({ movie }) {
   );
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function Main({ movies, children }) {
   return <main className="main">{children}</main>;
 }
 
 function App() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [movies, setMovies] = useState(tempMovieData);
   return (
     <>
