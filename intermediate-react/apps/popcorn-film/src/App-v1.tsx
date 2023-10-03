@@ -83,14 +83,15 @@ function App() {
   });
 
   useEffect(() => {
-    console.log("useEffect");
+    const controller = new AbortController();
     async function fetchMovies() {
       try {
         setIsLoading(true);
         setError("");
 
         const result = await fetch(
-          `https://www.omdbapi.com/?apikey=${KEY}&s=${query}`
+          `https://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
+          { signal: controller.signal }
         );
         // debug
         // throw new Error("Error fetching");
@@ -102,7 +103,9 @@ function App() {
         }
         setMovies(data.Search);
       } catch (e) {
-        setError(e.message);
+        if (e.name != "AbortError") {
+          setError(e.message);
+        }
       } finally {
         console.log("finally");
         setIsLoading(false);
@@ -116,7 +119,10 @@ function App() {
     }
     fetchMovies();
 
-    // return () => console.log("cleanup complete");
+    return () => {
+      console.log("cleanup complete");
+      return controller.abort();
+    };
   }, [query]);
 
   // before browser painting
@@ -378,12 +384,20 @@ function MovieDetails({ selectedId, onAddWatched, onCloseMovie, watched }) {
         );
         const data = await res.json();
         setMovie(data);
+
         setIsLoading(false);
       }
       getMovieDetails();
     },
+
     [selectedId]
   );
+
+  useEffect(() => {
+    if (!title) return;
+    document.title = `Movie ${title}`;
+    return () => (document.title = "Popcorn");
+  }, [title]);
 
   return (
     <div className="details">
