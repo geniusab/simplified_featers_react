@@ -77,6 +77,18 @@ function App() {
         будет вызван после того, как браузер отрисует компоненты. Хук
         useLayoutEffect предотвращает лишнее обновление компонента. useState -
         асинхроный
+        <li>
+          <ol>
+            <li>useRef - persists across render</li>
+            <li>useRef - not immutable</li>
+            <li>useRef - not asynchronous update</li>
+          </ol>
+          <ol>
+            <li>useState - persists across render</li>
+            <li>useState - immutable</li>
+            <li>useState - asynchronous update</li>
+          </ol>
+        </li>
       </ul>
     </>
   );
