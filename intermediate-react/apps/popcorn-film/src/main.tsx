@@ -1,7 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 // import App from "./App.tsx";
-import App from "./App-v1.tsx";
+// import App from "./App-v1.tsx";
+import App from "./App-v2.tsx";
 import "./index.css";
 // import { StarRating } from "./components/StarRating.tsx";
 
