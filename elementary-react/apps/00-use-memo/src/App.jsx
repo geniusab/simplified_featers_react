@@ -1,6 +1,6 @@
-import { useState, useMemo, memo } from 'react';
-import React from 'react';
-import './App.css';
+import { useState, useMemo, memo } from "react";
+import React from "react";
+import "./App.css";
 
 function slowlyCalculateTextColor(color) {
   const arr = [];
@@ -18,15 +18,15 @@ const shouldComponentUpdate = (prevProps, nextProps) => {
   );
 };
 function Button({ color, onClick, children }) {
-  console.log('Button rerendered');
+  console.log("Button rerendered");
   const textColor = useMemo(() => slowlyCalculateTextColor(color), []);
   return (
     // ✅ `color` is always fresh!
     <button
-      className={'Button-' + color + ' Button-text-' + textColor}
+      className={"Button-" + color + " Button-text-" + textColor}
       onClick={onClick}
     >
-      {children || 'Button'}
+      {children || "Button"}
     </button>
   );
 }
@@ -40,9 +40,9 @@ function App() {
       <div>
         <MyForm />
       </div>
-      <button onClick={() => setIsOk((prev) => !prev)}>isOk {isOk + ''}</button>
+      <button onClick={() => setIsOk(prev => !prev)}>isOk {isOk + ""}</button>
       // isOk might be driven by state and can change at any time
-      <Button color={isOk ? 'blue' : 'red'} />
+      <Button color={isOk ? "blue" : "red"} />
       <h1>Principle 1: Don’t Stop the Data Flow</h1>
     </>
   );

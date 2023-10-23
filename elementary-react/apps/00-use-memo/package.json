@@ -1,5 +1,5 @@
 {
-  "name": "dont_stop_the_data_flow",
+  "name": "00-use-memo",
   "private": true,
   "version": "0.0.0",
   "type": "module",
