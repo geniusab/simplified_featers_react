@@ -1,12 +1,16 @@
 function Question({ question, answer, dispatch }) {
-  const handleClick = numberAnswer => {
-    const points = numberAnswer === question.correctOption;
+  const hasAnswered = answer !== null;
+
+  const handleClick = index => {
+    console.log("index", index);
+    // const points = numberAnswer === question.correctOption;
     dispatch({
-      type: "answer",
-      payload: {
-        question: numberAnswer,
-        point: points ? 10 : 0,
-      },
+      type: "newAnswer",
+      payload: index,
+      // payload: {
+      //   question: numberAnswer,
+      //   point: points ? 10 : 0,
+      // },
     });
   };
 
@@ -15,17 +19,23 @@ function Question({ question, answer, dispatch }) {
       <h4>{question.question}</h4>
       <div className="options">
         {question.options.map((option, i) => {
+          const classNames = `btn btn-option ${i === answer ? "answer" : ""} ${
+            answer === i
+              ? question.correctOption === answer
+                ? "correct"
+                : "wrong"
+              : ""
+          }`;
+
           return (
-            <Option
-              key={i + "_option"}
-              option={{
-                option,
-                i,
-                answer,
-                correctOption: question.correctOption,
-              }}
-              onHandleClick={handleClick}
-            />
+            <button
+              key={`option-${i}`}
+              disabled={hasAnswered}
+              className={classNames}
+              onClick={() => handleClick(i)}
+            >
+              {option}
+            </button>
           );
         })}
       </div>
@@ -33,23 +43,20 @@ function Question({ question, answer, dispatch }) {
   );
 }
 
-export function Option({ option, onHandleClick }) {
-  const classNames = "btn btn-option ";
-  const statusClass =
-    option.answer === option.i
-      ? option.correctOption === option.answer
-        ? "correct"
-        : "wrong"
-      : "";
+// export function Option({ option, classNames, onHandleClick }) {
+//   // const classNames = "btn btn-option ";
+//   // const statusClass =
+//   option.answer === option.i
+//     ? option.correctOption === option.answer
+//       ? "correct"
+//       : "wrong"
+//     : "";
 
-  return (
-    <button
-      className={classNames + statusClass}
-      onClick={() => onHandleClick(option.i)}
-    >
-      {option.option}
-    </button>
-  );
-}
+//   return (
+//     <button className={classNames} onClick={() => onHandleClick(option.i)}>
+//       {option.option}
+//     </button>
+//   );
+// }
 
 export default Question;

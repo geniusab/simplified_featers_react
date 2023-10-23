@@ -5,55 +5,55 @@ import Loader from "./components/Loader";
 import Error from "./components/Error";
 import Welcome from "./components/Welcome";
 import Question from "./components/Question";
+import NextButton from "./components/NextButton";
+import Progress from "./components/Progress";
+import FinishScreen from "./components/FinishScreen";
 
 const initialState = {
   questions: [],
-
-  // loading error ready active finished
-  // status: "loading",
-  // index: 0,
-
-  status: "loading",
+  status: "loading", // error | ready | active | finished
   index: 0,
+  answer: null,
   answers: [],
   points: 0,
+  highscore: 0,
 };
 
 function reducer(state, action) {
   switch (action.type) {
     case "dataPending":
-      return {
-        ...state,
-        status: "loading",
-      };
+      return { ...state, status: "loading" };
     case "dataReceived":
-      return {
-        ...state,
-        questions: action.payload,
-        status: "active",
-      };
+      return { ...state, questions: action.payload, status: "ready" };
     case "dataFailed":
-      return {
-        ...state,
-        questions: [],
-        status: "error",
-      };
-
+      return { ...state, questions: [], status: "error" };
     case "start":
+      return { ...state, status: "active" };
+    case "newAnswer":
+      // eslint-disable-next-line no-case-declarations
+      const question = state.questions.at(state.index);
       return {
         ...state,
-        status: "active",
+        answer: action.payload,
+        points:
+          action.payload === question.correctOption
+            ? state.points + question.points
+            : state.points,
+        // answers: [...state.answers, action.payload.question],
       };
-    case "answer":
+    case "nextQuestion": {
+      return { ...state, answer: null, index: state.index + 1 };
+    }
+    case "finish": {
       return {
         ...state,
-        answers: [...state.answers, action.payload.question],
-        index: state.index < 15 ? state.index + 1 : state.index,
-        points: state.points + action.payload.point,
+        status: "finished",
+        highscore:
+          state.points > state.highscore ? state.points : state.highscore,
       };
-
+    }
     case "reset": {
-      return initialState;
+      return { ...initialState, questions: state.questions, status: "ready" };
     }
 
     default:
@@ -80,28 +80,55 @@ function App() {
     getData();
   }, []);
 
-  const { questions, status, index, points, answers } = state;
+  const { questions, status, index, points, answer, highscore } = state;
+  const numQuestions = questions.length;
+  const maxPossiblePoints = questions.reduce(
+    (prev, cur) => prev + cur.points,
+    0
+  );
 
   return (
     <div className="app">
       <Header />
       <Main>
-        <h1>Step: {index}</h1>
-        <h2> Points: {points}</h2>
         {status === "loading" && <Loader />}
         {status === "error" && <Error />}
         {status === "ready" && (
           <Welcome numQuestions={questions.length} dispatch={dispatch} />
         )}
+
         {status === "active" && index < 15 && (
-          <Question
-            question={questions[index]}
-            answer={answers[index]}
+          <>
+            <Progress
+              index={index}
+              points={points}
+              numQuestions={numQuestions}
+              maxPossiblePoints={maxPossiblePoints}
+            />
+            <Question
+              question={questions[index]}
+              answer={answer}
+              dispatch={dispatch}
+            />
+            <NextButton
+              dispatch={dispatch}
+              answer={answer}
+              index={index}
+              numQuestions={numQuestions}
+            />
+          </>
+        )}
+
+        {status === "finished" && (
+          <FinishScreen
+            points={points}
+            maxPossiblePoints={maxPossiblePoints}
+            highscore={highscore}
             dispatch={dispatch}
           />
         )}
 
-        {index === 15 && (
+        {/* {index === 15 && (
           <>
             <h1>Points: {points}</h1>
             {questions.map((question, i) => {
@@ -118,7 +145,7 @@ function App() {
               Reset
             </button>
           </>
-        )}
+        )} */}
       </Main>
     </div>
   );
