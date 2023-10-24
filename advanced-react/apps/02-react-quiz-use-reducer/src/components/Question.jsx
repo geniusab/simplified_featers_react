@@ -2,16 +2,7 @@ function Question({ question, answer, dispatch }) {
   const hasAnswered = answer !== null;
 
   const handleClick = index => {
-    console.log("index", index);
-    // const points = numberAnswer === question.correctOption;
-    dispatch({
-      type: "newAnswer",
-      payload: index,
-      // payload: {
-      //   question: numberAnswer,
-      //   point: points ? 10 : 0,
-      // },
-    });
+    dispatch({ type: "newAnswer", payload: index });
   };
 
   return (
@@ -42,21 +33,5 @@ function Question({ question, answer, dispatch }) {
     </div>
   );
 }
-
-// export function Option({ option, classNames, onHandleClick }) {
-//   // const classNames = "btn btn-option ";
-//   // const statusClass =
-//   option.answer === option.i
-//     ? option.correctOption === option.answer
-//       ? "correct"
-//       : "wrong"
-//     : "";
-
-//   return (
-//     <button className={classNames} onClick={() => onHandleClick(option.i)}>
-//       {option.option}
-//     </button>
-//   );
-// }
 
 export default Question;
