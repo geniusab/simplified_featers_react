@@ -1,8 +1,6 @@
 import React, { memo, useEffect } from "react";
-import { useQuiz } from "./context/QuizContext";
 
-const Timer = memo(() => {
-  const { secondsRemaining, dispatch, status } = useQuiz();
+const Timer = memo(({ secondsRemaining, dispatch, status }) => {
   const mins = Math.floor(secondsRemaining / 60);
   const seconds = secondsRemaining % 60;
 
