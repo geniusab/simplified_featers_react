@@ -2,8 +2,8 @@
 import CityItem from "./CityItem";
 import styles from "./CityList.module.css";
 import { PropTypes } from "prop-types";
-import Spinner from "./Spinner";
-import Message from "./Message";
+import Spinner from "./shared/Spinner";
+import Message from "./shared/Message";
 
 function CityList({ cities, isLoading }) {
   if (isLoading) return <Spinner />;

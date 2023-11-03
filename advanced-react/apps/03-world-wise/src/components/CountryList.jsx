@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import styles from "./CountryList.module.css";
 
-import Spinner from "./Spinner";
-import Message from "./Message";
+import Spinner from "./shared/Spinner";
+import Message from "./shared/Message";
 import CountryItem from "./CountryItem";
 
 function CountryList({ cities, isLoading }) {
@@ -20,8 +20,6 @@ function CountryList({ cities, isLoading }) {
       return [...acc, { country: cur.country, emoji: cur.emoji, id: cur.id }];
     } else return acc;
   }, []);
-
-  console.log(countries);
 
   return (
     <ul className={styles.countryList}>
