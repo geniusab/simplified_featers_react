@@ -1,7 +1,6 @@
-/* eslint-disable react/prop-types */
 import CityItem from "./CityItem";
 import styles from "./CityList.module.css";
-import { PropTypes } from "prop-types";
+
 import Spinner from "./shared/Spinner";
 import Message from "./shared/Message";
 
@@ -26,11 +25,3 @@ function CityList({ cities, isLoading }) {
 }
 
 export default CityList;
-
-CityList.defaultProps = {
-  cities: [],
-};
-
-CityList.propsType = {
-  cities: PropTypes.Array,
-};
