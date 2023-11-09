@@ -10,7 +10,7 @@ export function useQuery() {
   const [searchParams, setSearchParams] = useSearchParams();
   const lat = searchParams.get("lat");
   const lng = searchParams.get("lng");
-  return [searchParams, setSearchParams, { lat, lng }];
+  return { query: { lat, lng } };
 }
 
 const formatDate = date =>

@@ -1,8 +1,8 @@
 import styles from "./CountryList.module.css";
-import Spinner from "./shared/Spinner";
-import Message from "./shared/Message";
+import Spinner from "../shared/Spinner";
+import Message from "../shared/Message";
 import CountryItem from "./CountryItem";
-import { useCities } from "../CityContext";
+import { useCities } from "../../CityContext";
 
 function CountryList() {
   const { cities, isLoading } = useCities();
