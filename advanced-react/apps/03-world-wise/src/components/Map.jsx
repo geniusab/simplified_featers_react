@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useNavigate } from "react-router-dom";
-import { useQuery } from "./City";
+import { useQuery } from "./city/City";
 import styles from "./Map.module.css";
 
 function Map() {
