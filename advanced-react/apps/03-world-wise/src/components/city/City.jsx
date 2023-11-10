@@ -1,13 +1,12 @@
-/* eslint-disable no-unused-vars */
-import { useParams, useLocation, useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import styles from "./City.module.css";
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useCities } from "../../CityContext";
 import Spinner from "../shared/Spinner";
 import ButtonBack from "../shared/ButtonBack";
 
 export function useQuery() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const lat = searchParams.get("lat");
   const lng = searchParams.get("lng");
   return { query: { lat, lng } };

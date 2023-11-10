@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 
 const CityContext = React.createContext(null);
-
 const BASE_URL = "http://localhost:3003";
 
 export const CityProvider = ({ children }) => {
