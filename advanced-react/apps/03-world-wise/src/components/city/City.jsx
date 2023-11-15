@@ -1,16 +1,9 @@
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import styles from "./City.module.css";
 import { useEffect } from "react";
 import { useCities } from "../../CityContext";
 import Spinner from "../shared/Spinner";
 import ButtonBack from "../shared/ButtonBack";
-
-export function useQuery() {
-  const [searchParams] = useSearchParams();
-  const lat = searchParams.get("lat");
-  const lng = searchParams.get("lng");
-  return { query: { lat, lng } };
-}
 
 const formatDate = date =>
   new Intl.DateTimeFormat("en", {

@@ -1,28 +1,25 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { MapContainer } from "react-leaflet/MapContainer";
 import { TileLayer } from "react-leaflet/TileLayer";
 import { useMap } from "react-leaflet/hooks";
 import { Marker, Popup, useMapEvents } from "react-leaflet";
-import { useNavigate } from "react-router-dom";
-import { useQuery } from "./city/City";
-
 import styles from "./Map.module.css";
-
 import { useCities } from "../CityContext";
-import { useEffect, useState } from "react";
 import { useGeolocation } from "../hooks/useGeoLocation";
 import Button from "./shared/Button";
+import { useUrlPosition } from "../hooks/useUrlPosition";
 
 function Map() {
+  const [lat, lng] = useUrlPosition();
   const {
     isLoading: isLoadingPosition,
     position: geoLocationPositions,
     getPosition,
   } = useGeolocation();
-  const { query } = useQuery();
-  const { lat, lng } = query;
+
   const { cities } = useCities();
   const [mapPosition, setMapPosition] = useState([40, 0]);
-  useGeolocation();
 
   useEffect(() => {
     if (lat && lng) setMapPosition([lat, lng]);
