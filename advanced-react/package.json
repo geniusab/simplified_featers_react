@@ -20,6 +20,7 @@
     "packages/*"
   ],
   "dependencies": {
-    "json-server": "^0.17.4"
+    "json-server": "^0.17.4",
+    "react-datepicker": "^4.21.0"
   }
 }
