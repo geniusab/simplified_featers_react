@@ -3,7 +3,7 @@ import styles from "./CityList.module.css";
 
 import Spinner from "../shared/Spinner";
 import Message from "../shared/Message";
-import { useCities } from "../../CityContext";
+import { useCities } from "../../contexts/CityContext";
 
 function CityList() {
   const { cities, isLoading } = useCities();

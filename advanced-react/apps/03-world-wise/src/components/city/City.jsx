@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import styles from "./City.module.css";
 import { useEffect } from "react";
-import { useCities } from "../../CityContext";
+import { useCities } from "../../contexts/CityContext";
 import Spinner from "../shared/Spinner";
 import ButtonBack from "../shared/ButtonBack";
 

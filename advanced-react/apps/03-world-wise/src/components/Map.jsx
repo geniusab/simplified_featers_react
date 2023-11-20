@@ -5,7 +5,7 @@ import { TileLayer } from "react-leaflet/TileLayer";
 import { useMap } from "react-leaflet/hooks";
 import { Marker, Popup, useMapEvents } from "react-leaflet";
 import styles from "./Map.module.css";
-import { useCities } from "../CityContext";
+import { useCities } from "../contexts/CityContext";
 import { useGeolocation } from "../hooks/useGeoLocation";
 import Button from "./shared/Button";
 import { useUrlPosition } from "../hooks/useUrlPosition";
