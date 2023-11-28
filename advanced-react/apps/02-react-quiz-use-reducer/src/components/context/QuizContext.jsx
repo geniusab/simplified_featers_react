@@ -1,10 +1,4 @@
-import React, {
-  useReducer,
-  useState,
-  useEffect,
-  useContext,
-  createContext,
-} from "react";
+import { useReducer, useEffect, useContext, createContext } from "react";
 import { useLocalStorage } from "../../useLocalStorage";
 
 const QuizContext = createContext(null);
@@ -13,8 +7,7 @@ const QUESTION_PER_SECOND = 10;
 
 const initialState = {
   questions: [],
-  // 'loading', 'error', 'ready', 'active', 'finished'
-  status: "loading",
+  status: "loading", // 'loading', 'error', 'ready', 'active', 'finished'
   index: 0,
   answer: null,
   answers: [],
@@ -43,6 +36,7 @@ function reducer(state, action) {
         secondsRemaining: state.questions.length * QUESTION_PER_SECOND,
       };
     case "newAnswer":
+      // eslint-disable-next-line no-case-declarations
       const question = state.questions.at(state.index);
       return {
         ...state,
@@ -108,7 +102,7 @@ function QuizProvider({ children }) {
           payload: { questions: data, highscore: value },
         })
       )
-      .catch(err => dispatch({ type: "dataFailed" }));
+      .catch(() => dispatch({ type: "dataFailed" }));
   }, []);
 
   return (

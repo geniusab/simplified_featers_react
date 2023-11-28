@@ -1,17 +1,15 @@
-import { useEffect, useState } from "react";
-import { faker } from "@faker-js/faker";
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
+import { useEffect, useState, memo, useCallback } from "react";
+
 import { useBlogContext } from "./BlogContext";
 
-function createRandomPost() {
-  return {
-    id: crypto.randomUUID().toString(),
-    title: `${faker.hacker.adjective()} ${faker.hacker.noun()}`,
-    body: faker.hacker.phrase(),
-  };
-}
+import { Archive } from "./components/Archive";
+// import Test from "./Test";
 
 function App() {
   const [isFakeDark, setIsFakeDark] = useState(false);
+  // const { handleAddPost: onAddPost, posts } = useBlogContext();
 
   // Whenever `isFakeDark` changes, we toggle the `fake-dark-mode` class on the HTML element (see in "Elements" dev tool).
   useEffect(
@@ -21,6 +19,12 @@ function App() {
     [isFakeDark]
   );
 
+  // const handleAddPost = useCallback(onAddPost, [onAddPost]);
+
+  // const archiveOptions = useMemo(() => {
+  //   return { show: false, title: `Post archive to ${posts.length}` };
+  // }, [posts.length]);
+
   return (
     <section>
       <button
@@ -29,7 +33,6 @@ function App() {
       >
         {isFakeDark ? "☀️" : "🌙"}
       </button>
-
       <Header />
       <Main />
       <Archive />
@@ -70,14 +73,14 @@ function Results() {
   return <p>🚀 {posts.length} atomic posts found</p>;
 }
 
-function Main() {
+const Main = memo(function Main() {
   return (
     <main>
       <FormAddPost />
       <Posts />
     </main>
   );
-}
+});
 
 function Posts() {
   return (
@@ -120,54 +123,17 @@ function FormAddPost() {
 function List() {
   const { posts } = useBlogContext();
   return (
-    <ul>
-      {posts.map((post, i) => (
-        <li key={i}>
-          <h3>{post.title}</h3>
-          <p>{post.body}</p>
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-function Archive() {
-  const { onAddPost } = useBlogContext();
-  // Here we don't need the setter function. We're only using state to store these posts because the callback function passed into useState (which generates the posts) is only called once, on the initial render. So we use this trick as an optimization technique, because if we just used a regular variable, these posts would be re-created on every render. We could also move the posts outside the components, but I wanted to show you this trick 😉
-  const [posts] = useState(() => {
-    // 💥 WARNING: This might make your computer slow! Try a smaller `length` first
-
-    return Array.from({ length: 10000 }, () => createRandomPost());
-  });
-
-  // const posts = useMemo(() => {
-  //   return Array.from({ length: 10000 }, () => createRandomPost());
-  // }, []);
-
-  const [showArchive, setShowArchive] = useState(false);
-
-  return (
-    <aside>
-      <h2>Post archive</h2>
-      <button onClick={() => setShowArchive(s => !s)}>
-        {showArchive ? "Hide archive posts" : "Show archive posts"}
-      </button>
-
-      {showArchive && (
-        <ul>
-          {posts.map(post => {
-            return (
-              <li key={post.id}>
-                <p>
-                  <strong>{post.title}:</strong> {post.body}
-                </p>
-                <button onClick={() => onAddPost(post)}>Add as new post</button>
-              </li>
-            );
-          })}
-        </ul>
-      )}
-    </aside>
+    <>
+      <ul>
+        {posts.map((post, i) => (
+          <li key={i}>
+            <h3>{post.title}</h3>
+            <p>{post.body}</p>
+          </li>
+        ))}
+      </ul>
+      {/* <Test /> */}
+    </>
   );
 }
 

@@ -14,14 +14,13 @@ const formatDate = date =>
   }).format(new Date(date));
 
 function City() {
-  const params = useParams();
+  const { id } = useParams();
 
-  const { id } = params;
   const { currentCity, isLoading, getCities } = useCities();
 
   useEffect(() => {
     getCities(id);
-  }, [id]);
+  }, [id, getCities]);
 
   if (isLoading) return <Spinner />;
   if (!currentCity?.cityName) return <Spinner />;

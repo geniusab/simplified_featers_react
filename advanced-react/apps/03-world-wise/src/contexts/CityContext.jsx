@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useContext, useEffect, useState, useReducer } from "react";
+import { useCallback } from "react";
 
 const CityContext = React.createContext(null);
 const BASE_URL = "http://localhost:3003";
@@ -77,17 +78,20 @@ export const CityProvider = ({ children }) => {
     fetchCities();
   }, []);
 
-  async function getCities(id) {
-    if (Number(id) === currentCity.id) return;
-    try {
-      dispatch({ type: "loading" });
-      const response = await fetch(`${BASE_URL}/cities/${id}`);
-      const data = await response.json();
-      dispatch({ type: "city/loaded", payload: data });
-    } catch (err) {
-      dispatch({ type: "rejected", payload: "Error fetching city" });
-    }
-  }
+  const getCities = useCallback(
+    async function getCities(id) {
+      if (Number(id) === currentCity.id) return;
+      try {
+        dispatch({ type: "loading" });
+        const response = await fetch(`${BASE_URL}/cities/${id}`);
+        const data = await response.json();
+        dispatch({ type: "city/loaded", payload: data });
+      } catch (err) {
+        dispatch({ type: "rejected", payload: "Error fetching city" });
+      }
+    },
+    [currentCity.id]
+  );
 
   async function createCities(newCity) {
     try {

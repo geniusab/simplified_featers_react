@@ -1,4 +1,3 @@
-import { useContext, useEffect, useReducer } from "react";
 import Header from "./components/Header";
 import Main from "./components/Main";
 import Loader from "./components/Loader";
@@ -10,8 +9,8 @@ import Progress from "./components/Progress";
 import FinishScreen from "./components/FinishScreen";
 import Footer from "./components/Footer";
 import Timer from "./components/Timer";
-import GlobalTimer from "./components/GlobalTimer";
-import { useLocalStorage } from "./useLocalStorage";
+// import GlobalTimer from "./components/GlobalTimer";
+// import { useLocalStorage } from "./useLocalStorage";
 import { useQuiz } from "./components/context/QuizContext";
 
 // filter number of questions
@@ -42,7 +41,6 @@ function App() {
         {status === "finished" && <FinishScreen />}
         <Footer>
           <Timer />
-          {/* <GlobalTimer /> */}
         </Footer>
       </Main>
     </div>

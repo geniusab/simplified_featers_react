@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker";
+import { useMemo } from "react";
 import { useContext } from "react";
 import { useState } from "react";
 import { createContext } from "react";
@@ -14,7 +15,7 @@ export const BlogContext = createContext(null);
 
 function BlogProvider({ children }) {
   const [posts, setPosts] = useState(() =>
-    Array.from({ length: 30 }, () => createRandomPost())
+    Array.from({ length: 5 }, () => createRandomPost())
   );
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -35,20 +36,19 @@ function BlogProvider({ children }) {
     setPosts([]);
   }
 
-  return (
-    <BlogContext.Provider
-      value={{
-        posts: searchedPosts,
-        setPosts,
-        setSearchQuery,
-        handleAddPost,
-        onClearPosts: handleClearPosts,
-        onAddPost: handleAddPost,
-      }}
-    >
-      {children}
-    </BlogContext.Provider>
+  const value = useMemo(
+    () => ({
+      posts: searchedPosts,
+      setPosts,
+      setSearchQuery,
+      handleAddPost,
+      onClearPosts: handleClearPosts,
+      onAddPost: handleAddPost,
+    }),
+    [searchedPosts]
   );
+
+  return <BlogContext.Provider value={value}>{children}</BlogContext.Provider>;
 }
 
 function useBlogContext() {
