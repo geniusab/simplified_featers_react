@@ -1,4 +1,4 @@
-import { useEffect, useState, memo } from "react";
+import { useEffect, useState, useCallback, memo } from "react";
 import clickSound from "./ClickSound.mp3";
 
 function Calculator({ workouts, allowSound }) {
@@ -37,6 +37,7 @@ function Calculator({ workouts, allowSound }) {
       console.log(duration, sets);
       document.title = `Your ${number}-exercise workout`;
     },
+
     [number, duration, sets]
   );
 

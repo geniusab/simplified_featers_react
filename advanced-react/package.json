@@ -21,6 +21,7 @@
   ],
   "dependencies": {
     "json-server": "^0.17.4",
-    "react-datepicker": "^4.21.0"
+    "react-datepicker": "^4.21.0",
+    "react-redux": "^8.1.3"
   }
 }
