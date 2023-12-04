@@ -2,6 +2,7 @@ import { applyMiddleware, combineReducers, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { customerReducer } from "../features/customers/customerSlice";
 import { accountReducer } from "../features/accounts/accountSlice";
+import thunk from "redux-thunk";
 import logger from "redux-logger";
 
 const rootReducer = combineReducers({
@@ -11,7 +12,7 @@ const rootReducer = combineReducers({
 
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(logger))
+  composeWithDevTools(applyMiddleware(logger, thunk))
 );
 
 // const ACCOUNT_DEPOSIT = "account/deposit";
