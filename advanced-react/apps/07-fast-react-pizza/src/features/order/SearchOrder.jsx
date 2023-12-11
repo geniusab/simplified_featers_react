@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function SearchOrder() {
-  const [query, setQuery] = useState();
+  const [query, setQuery] = useState("");
   const navigate = useNavigate();
 
   function handleSubmit(e) {
@@ -15,10 +15,11 @@ function SearchOrder() {
   return (
     <form onSubmit={handleSubmit}>
       <input
+        className="input"
         type="text"
         placeholder="Search order #"
         value={query}
-        onChange={e => setQuery(e.target.value)}
+        onChange={(e) => setQuery(e.target.value)}
       />
     </form>
   );
