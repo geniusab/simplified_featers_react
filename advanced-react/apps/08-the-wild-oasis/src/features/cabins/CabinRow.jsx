@@ -1,11 +1,10 @@
 import styled from "styled-components";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import toast, { Toaster } from "react-hot-toast";
-
-import { deleteCabin } from "../../services/apiCabins";
+import { HiSquare2Stack, HiPencil, HiMiniTrash } from "react-icons/hi2";
 import { useState } from "react";
 import CreateCabinForm from "./CreateCabinForm";
 import { formatCurrency } from "./../../utils/helpers";
+import { useDeleteCabin } from "./useDeleteCabin";
+import { useCreateCabin } from "./useCreateCabin";
 
 const TableRow = styled.div`
   display: grid;
@@ -54,22 +53,23 @@ function CabinRow({ cabin }) {
     regularPrice,
     discount,
     image,
+    description,
   } = cabin;
   const [showForm, setShowForm] = useState(false);
+  const { isDeleting, deleteCabin } = useDeleteCabin();
 
-  const queryClient = useQueryClient();
+  const { createCabin } = useCreateCabin();
 
-  const { isLoading: isDeleting, mutate } = useMutation({
-    mutationFn: deleteCabin,
-    onSuccess: () => {
-      toast.success("Cabin successfully deleted");
-
-      queryClient.invalidateQueries({
-        queryKey: ["cabins"],
-      });
-    },
-    onError: (err) => toast.error(err.message),
-  });
+  function handleDuplicate() {
+    createCabin({
+      name: `Copy of ${name}`,
+      maxCapacity,
+      regularPrice,
+      discount,
+      image,
+      description,
+    });
+  }
 
   return (
     <>
@@ -86,14 +86,17 @@ function CabinRow({ cabin }) {
         )}
 
         <div>
+          <button onClick={handleDuplicate}>
+            <HiSquare2Stack></HiSquare2Stack>
+          </button>
           <button
             onClick={() => setShowForm((show) => !show)}
             disabled={isDeleting}
           >
-            Edit
+            <HiPencil />
           </button>
-          <button onClick={() => mutate(cabinId)} disabled={isDeleting}>
-            Delete
+          <button onClick={() => deleteCabin(cabinId)} disabled={isDeleting}>
+            <HiMiniTrash />
           </button>
         </div>
       </TableRow>
