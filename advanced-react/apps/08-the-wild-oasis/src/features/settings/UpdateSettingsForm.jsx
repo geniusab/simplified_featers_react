@@ -3,41 +3,67 @@ import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 import { useSettings } from "./useSettings";
 import Spinner from "./../../ui/Spinner";
+import { useUpdateSetting } from "./useUpdateSetting";
 
 function UpdateSettingsForm() {
-  const { settings, error, isLoading } = useSettings();
+  const {
+    isLoading,
+    settings: {
+      minBookingLength,
+      maxBookingLength,
+      maxGuestPerBooking,
+      breacfastPrice,
+    } = {},
+  } = useSettings();
+
+  const { isUpdating, updateSetting } = useUpdateSetting();
+
+  function handleUpdate(e, field) {
+    const { value } = e.target;
+    if (!value) return;
+    updateSetting({ [field]: value });
+  }
 
   if (isLoading) return <Spinner />;
 
-  console.log(settings);
+  console.log("Loading", isUpdating);
+
   return (
     <Form>
       <FormRow label="Minimum nights/booking">
         <Input
           type="number"
           id="min-nights"
-          defaultValue={settings?.minBookingLength}
+          defaultValue={minBookingLength}
+          disabled={isUpdating}
+          onBlur={(e) => handleUpdate(e, "minBookingLength")}
         />
       </FormRow>
       <FormRow label="Maximum nights/booking">
         <Input
           type="number"
           id="max-nights"
-          defaultValue={settings?.maxBookingLength}
+          defaultValue={maxBookingLength}
+          disabled={isUpdating}
+          onBlur={(e) => handleUpdate(e, "maxBookingLength")}
         />
       </FormRow>
       <FormRow label="Maximum guests/booking">
         <Input
           type="number"
           id="max-guests"
-          defaultValue={settings?.maxGuestPerBooking}
+          defaultValue={maxGuestPerBooking}
+          disabled={isUpdating}
+          onBlur={(e) => handleUpdate(e, "maxGuestPerBooking")}
         />
       </FormRow>
       <FormRow label="Breakfast price">
         <Input
           type="number"
           id="breakfast-price"
-          defaultValue={settings?.breacfastPrice}
+          defaultValue={breacfastPrice}
+          disabled={isUpdating}
+          onBlur={(e) => handleUpdate(e, "breacfastPrice")}
         />
       </FormRow>
     </Form>
