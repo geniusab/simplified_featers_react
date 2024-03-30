@@ -1,9 +1,44 @@
 import BookingRow from "./BookingRow";
 import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
+import { useBookings } from "./useBooking";
+import Spinner from "../../ui/Spinner";
+import Empty from "./../../ui/Empty";
+import { useSearchParams } from "react-router-dom";
 
 function BookingTable() {
-  const bookings = [];
+  const { isLoading, bookings } = useBookings();
+  // const [searchParams] = useSearchParams();
+
+  if (isLoading) {
+    return <Spinner></Spinner>;
+  }
+
+  if (!bookings?.length) {
+    return <Empty resource="bookings"></Empty>;
+  }
+
+  // const filterValue = searchParams.get("status");
+  // const sortValue = searchParams.get("sortBy");
+
+  // let filteredBookings = [];
+
+  // if (filterValue === "checked-in") {
+  //   filteredBookings = bookings.filter(({ status }) => status === filterValue);
+  // } else if (filterValue === "checked-out") {
+  //   filteredBookings = bookings.filter(({ status }) => status === filterValue);
+  // } else if (filterValue === "unconfirmed") {
+  //   filteredBookings = bookings.filter(({ status }) => status === filterValue);
+  // } else {
+  //   filteredBookings = bookings;
+  // }
+
+  // const [field, direction] = sortValue ? sortValue.split("-") : ["asc", "date"];
+  // const modifier = direction === "asc" ? 1 : -1;
+
+  // const sortableBookings = filteredBookings.sort(
+  //   (a, b) => (a[field] - b[field]) * modifier,
+  // );
 
   return (
     <Menus>
