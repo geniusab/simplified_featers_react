@@ -62,17 +62,13 @@ function BookingRow({
 }) {
   const navigate = useNavigate();
   const { checkout, isCheckingOut } = useCheckout();
-  const { isDeleting, deleting } = useDeleteBooking();
+  const { isDeleting, deleteBooking } = useDeleteBooking();
 
   const statusToTagName = {
     unconfirmed: "blue",
     "checked-in": "green",
     "checked-out": "silver",
   };
-
-  function deleteBooking(bookingId) {
-    deleting(bookingId);
-  }
 
   return (
     <Table.Row>
