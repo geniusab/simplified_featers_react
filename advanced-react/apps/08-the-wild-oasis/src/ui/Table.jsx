@@ -86,6 +86,7 @@ function Row({ children }) {
     </StyledRow>
   );
 }
+
 function Body({ data, render }) {
   if (!data.length) return <Empty>No data to show at the moment</Empty>;
 
@@ -93,7 +94,8 @@ function Body({ data, render }) {
 }
 
 Table.Header = Header;
-Table.Row = Row;
 Table.Body = Body;
+Table.Row = Row;
+Table.Footer = Footer;
 
 export default Table;
