@@ -10,6 +10,7 @@ import Modal from "./../../ui/Modal";
 import Menus from "./../../ui/Menus";
 import { HiArrowDownOnSquare, HiArrowUpOnSquare, HiEye } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
+import { useCheckout } from "../check-in-out/useCheckout";
 
 const Cabin = styled.div`
   font-size: 1.6rem;
@@ -53,6 +54,8 @@ function BookingRow({
   },
 }) {
   const navigate = useNavigate();
+  const { checkout, isCheckingOut } = useCheckout();
+
   const statusToTagName = {
     unconfirmed: "blue",
     "checked-in": "green",
@@ -105,7 +108,7 @@ function BookingRow({
               </Menus.Button>
             )}
 
-            {/* {status === "checked-in" && (
+            {status === "checked-in" && (
               <Menus.Button
                 icon={<HiArrowUpOnSquare />}
                 onClick={() => checkout(bookingId)}
@@ -113,7 +116,7 @@ function BookingRow({
               >
                 Check out
               </Menus.Button>
-            )} */}
+            )}
           </Menus.List>
         </Menus.Menu>
       </Modal>

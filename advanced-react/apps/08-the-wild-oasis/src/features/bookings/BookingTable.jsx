@@ -4,12 +4,10 @@ import Menus from "../../ui/Menus";
 import { useBookings } from "./useBookings";
 import Spinner from "../../ui/Spinner";
 import Empty from "./../../ui/Empty";
-import { useSearchParams } from "react-router-dom";
 import Pagination from "../../ui/Pagination";
 
 function BookingTable() {
   const { isLoading, bookings, count } = useBookings();
-  // const [searchParams] = useSearchParams();
 
   if (isLoading) {
     return <Spinner></Spinner>;
