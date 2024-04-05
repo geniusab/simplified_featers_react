@@ -1,8 +1,8 @@
 import supabase, { supabaseUrl } from "./supabase";
-import { toast } from "react-hot-toast";
 
 export async function getCabins() {
-  let { data, error } = await supabase.from("cabins").select("*");
+  const { data, error } = await supabase.from("cabins").select("*");
+
   if (error) {
     console.log(error);
     throw new Error("cabins", error);
