@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 import { HiArrowUpOnSquare } from "react-icons/hi2";
 import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
+import Empty from "../../ui/Empty";
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -28,12 +29,15 @@ function BookingDetail() {
   const { booking, isLoading } = useBooking();
   const { checkout, isCheckingOut } = useCheckout();
   const { deleteBooking, isDeleting } = useDeleteBooking();
+
   const moveBack = useMoveBack();
   const navigate = useNavigate();
 
   if (isLoading) {
     return <Spinner />;
   }
+
+  if (!booking) return <Empty resource="booking" />;
 
   const { status, id: bookingId } = booking;
 
